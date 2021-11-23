@@ -1,0 +1,23 @@
+{
+  "dataUser": [
+    {
+      "id": 1,
+      "username": "bayu",
+      "email": "bayu@mail.com",
+      "password": 123
+    },
+    {
+      "id": 2,
+      "username": "bayu2",
+      "email": "bayu2@mail.com",
+      "password": 123
+    },
+    {
+      "username": "bayu3",
+      "email": "bayu3@mail.com",
+      "password": "123456",
+      "role": "user",
+      "id": 3
+    }
+  ]
+}
