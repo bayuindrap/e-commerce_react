@@ -11,9 +11,9 @@ class Login extends React.Component {
                 <h3>
                     Silahkan masuk ke akun Anda
                 </h3>
-                <h6>
+                <p>
                     Silahkan masuk ke akun Anda untuk menyelesaikan pembayaran dengan data pribadi Anda.
-                </h6>
+                </p>
 
             <form>
             <div className="form-group">
@@ -28,7 +28,7 @@ class Login extends React.Component {
                 value={this.props.logPass} onChange={(event) => this.props.handleInput(event.target.value, "logPass")}
                 />
             </div>
-            <button type="button" className="btn btn-primary" style={{ width: "636px"}} onClick={this.props.btMasuk}>Masuk</button>
+            <button type="button" className="btn btn-primary" style={{ width: "564px"}} onClick={this.props.btMasuk}>Masuk</button>
             </form>
 
             </div>

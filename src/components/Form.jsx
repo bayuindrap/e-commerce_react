@@ -17,10 +17,7 @@ class Form extends React.Component {
 
         }
     }
-
-
-
-
+    
     componentDidMount() {
         this.getData()
     }
@@ -93,7 +90,7 @@ class Form extends React.Component {
 
                 <div className="container">
                     <div className="row">
-                        <div className="col-6">
+                        <div className="col-6 p-5">
                             <Login
                                 handleInput={this.handleInput}
                                 logEmail={this.state.logEmail}
@@ -101,7 +98,7 @@ class Form extends React.Component {
                                 btMasuk={this.state.btMasuk}
                             />
                         </div>
-                        <div className="col-6">
+                        <div className="col-6 p-5">
                             <Register
                                 handleInput={this.handleInput}
                                 username={this.state.username}

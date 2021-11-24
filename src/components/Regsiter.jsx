@@ -38,7 +38,7 @@ class Register extends React.Component {
                             value={this.props.confrPassword} onChange={(event) => this.props.handleInput(event.target.value, "confrPassword")}
                         />
                     </div>
-                    <button type="button" className="btn btn-primary" style={{ width: "636px" }} onClick={this.props.btDaftar}>Daftar</button>
+                    <button type="button" className="btn btn-primary" style={{ width: "564px" }} onClick={this.props.btDaftar}>Daftar</button>
                 </form>
 
             </div>
