@@ -42,8 +42,7 @@ export const getProductsAction = (search, minimum, maximum) => {
                 res = await axios.get(`${API_URL}/products?harga_gte=${minimum}&harga_lte=${maximum}`)
             } else {
                 res = await axios.get(`${API_URL}/products`)
-            }
-            if (search) {
+            }if (search) {
                 if (search.hargaAsc == "harga-asc"){
                     console.log("tesHarga==> asc", search.hargaAsc)
                     res = await axios.get(`${API_URL}/products?_sort=harga&_order=asc`)
@@ -51,7 +50,7 @@ export const getProductsAction = (search, minimum, maximum) => {
                 if (search.hargaDesc){
                     res = await axios.get(`${API_URL}/products?_sort=harga&_order=desc`)
                 }
-                
+
                 if (search.azAsc){
                     res = await axios.get(`${API_URL}/products?_sort=nama&_order=asc`)
                 }
