@@ -22,19 +22,19 @@ class NavbarComponent extends React.Component {
                 <Collapse isOpen={this.state.openCollapse} navbar>
                     <Nav>
                         <NavItem>
-                            <Link className="nav-link" to="/products">
+                            <Link className="nav-link" to="/products" style={{color: "black"}}>
                                 Product
                             </Link>
                         </NavItem>
                         <NavItem>
-                            <NavLink>
+                            <NavLink style={{color: "black"}}>
                                 About
                             </NavLink>
                         </NavItem>
                     </Nav>
                     {
                         this.props.loading ?
-                        <Spinner color="danger" style={{ marginLeft: "auto", marginRight: 10}}>
+                        <Spinner  style={{ marginLeft: "auto", marginRight: 10}}>
                             Loading...
                         </Spinner>
                         :

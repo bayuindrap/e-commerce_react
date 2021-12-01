@@ -28,33 +28,35 @@ class App extends React.Component {
   componentDidMount() {
     this.keepLogin()
     this.getProducts()
+    // this.props.getProductsAction()
   }
 
-  keepLogin = () => {
-    let local = localStorage.getItem("data")
-    if (local) {
-      local = JSON.parse(local)
-      axios.get(`${API_URL}/dataUser?email=${local.email}&password${local.password}`)
-        .then((res) => {
-          console.log("keepLogin berhasil ==>", res.data)
+  keepLogin =  async () => {
+    try {
+      let local = localStorage.getItem("data")
+      if (local) {
+        // reassign variable local dgn json parse
+        local = JSON.parse(local)
+        let res = await this.props.loginAction(local.email, local.password)
+        if (res.success) {
           this.setState({ loading: false })
-          this.props.loginAction(res.data[0])
-        }).catch((err) => {
-          console.log(err)
-        })
-    } else {
-      this.setState({ loading: false })
+        }
+      } else {
+        this.setState({ loading: false })
+      }
+    } catch (error) {
+      console.log(error)
     }
+    
   }
 
   getProducts = () => {
-    axios.get(`${API_URL}/products`)
-      .then((response) => {
-        this.props.getProductsAction(response.data)
-      }).catch((error) => {
-        console.log(error)
-      })
+   
+        this.props.getProductsAction()
+        
+      
   }
+
   render() {
     return (
       <div>

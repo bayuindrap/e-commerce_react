@@ -10,7 +10,7 @@ class HomePage extends React.Component {
         return (
             <div>
            <div> 
-            <UncontrolledCarousel
+            <UncontrolledCarousel 
             items={[
               {
                 // altText: 'Slide 1',
@@ -40,8 +40,8 @@ class HomePage extends React.Component {
                     <h2 className="featurette-heading">IKEA | Kursi</h2>
                     <p className="lead" style={{ textAlign: "justify"}}>Lebar:\t55 cm Kedalaman:\t69,5 cm Tinggi:\t72,4 cm Lebar dudukan:\t57 cm Kedalaman dudukan:\t50 cm Tinggi dudukan:\t42,4 cm Berat total:\t6,50 kg</p>
                 </div>
-                <div className="col-md-5 ">
-                <img className="shadow p-3 mb-5 bg-white rounded " width="400"
+                <div className="col-md-5 d-flex justify-content-center">
+                <img className="shadow p-3 mb-5 bg-white rounded justify-content-center" width="400"
                         height="400" 
                 src="https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/334/0933452_PE791908_S4.jpg"   alt="Responsive image"/>
                 </div>
@@ -64,10 +64,10 @@ class HomePage extends React.Component {
                     <h2 className="featurette-heading">IKEA | Panci dengan penutup</h2>
                     <p className="lead" style={{ textAlign: "justify"}} >Anda dapat menggunakan panci ini dengan tutup di kompor dan oven, dan membawanya ke meja dan menyajikan makanan dari itu.</p>
                 </div>
-                <div className="col-md-5">
+                <div className="col-md-5 d-flex justify-content-center">
                 <img className="shadow bg-white rounded bd-placeholder-img bd-placeholder-img-lg featurette-image mx-auto" width="400"
                         height="400" 
-                src="https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/390/0939002_PE794384_S4.jpg"  alt="Responsive image"/>
+                src="https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/938/0893878_PE718922_S4.jpg"  alt="Responsive image"/>
                 </div>
             </div>
             </div>
