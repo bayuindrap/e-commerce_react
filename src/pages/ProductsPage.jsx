@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { CardBody, CardTitle, Input, Card, CardImg, Button, ButtonGroup, InputGroup, InputGroupText, Form, Col, Label, FormGroup } from "reactstrap"
-import { getProductsAction } from '../redux/actions'
+import { getProductsAction, getProductsSort } from '../redux/actions'
 
 class ProductsPage extends React.Component {
     constructor(props) {
@@ -58,34 +58,44 @@ class ProductsPage extends React.Component {
         this.inSearchMaximum.value = null
     }
 
-    btSort = () => {
+
+    // ini cara pake innerref dan condition
+    // btSort = () => {
        
-        if(this.inSearchSort.value == "harga-asc"){
+    //     if(this.inSearchSort.value == "harga-asc"){
 
-            this.props.getProductsAction({
-                hargaAsc: this.inSearchSort.value
+    //         this.props.getProductsAction({
+    //             hargaAsc: this.inSearchSort.value
            
-            })
-        }else if (this.inSearchSort.value == "harga-desc"){
-            this.props.getProductsAction({
-                hargaDesc: this.inSearchSort.value
+    //         })
+    //     }else if (this.inSearchSort.value == "harga-desc"){
+    //         this.props.getProductsAction({
+    //             hargaDesc: this.inSearchSort.value
             
-            })
-         }else if (this.inSearchSort.value == "nama-asc"){
-            this.props.getProductsAction({
-                azAsc: this.inSearchSort.value
-                
-            })
+    //         })
+    //      }else if (this.inSearchSort.value == "nama-asc"){
+    //         this.props.getProductsAction({
+    //             azAsc: this.inSearchSort.value
 
-        }else if (this.inSearchSort.value == "nama-desc"){
-            this.props.getProductsAction({
-                azDesc: this.inSearchSort.value
-            })
-        }else{
-            this.props.getProductsAction()
+    //         })
 
-        }
+    //     }else if (this.inSearchSort.value == "nama-desc"){
+    //         this.props.getProductsAction({
+    //             azDesc: this.inSearchSort.value
+    //         })
+    //     }else{
+    //         this.props.getProductsAction()
 
+    //     }
+
+    // }
+
+    //ini cara pake onchange
+    handleSort = (e) => {
+        this.props.getProductsSort({
+            field: e.target.value.split('-')[0],
+            sortType: e.target.value.split('-')[1]
+        })
     }
 
 
@@ -118,20 +128,20 @@ class ProductsPage extends React.Component {
 
                             <FormGroup>
                                 <Label>Sort</Label>
-                                <Input type="select" style={{ width: "250px" }} innerRef={(element) => this.inSearchSort = element}>
+                                <Input type="select" style={{ width: "250px" }} onChange={this.handleSort}>
                                     <option value="harga-asc">Harga Asc</option>
                                     <option value="harga-desc">Harga Desc</option>
                                     <option value="nama-asc">A-Z</option>
                                     <option value="nama-desc">Z-A</option>
                                     <option value="id-asc">Reset</option>
                                 </Input>
-                                <InputGroupText style={{ cursor: "pointer" }} onClick={() => this.btSort()}>
+                                {/* <InputGroupText style={{ cursor: "pointer"  }} onClick={() => this.btSort()}>
                                     Sort
-                                </InputGroupText>
+                                </InputGroupText> */}
                             </FormGroup>
                         </div>
                         <div style={{ float: "right", marginTop: "5px" }}>
-                            <Button outline color="warning" onClick={() => this.btReset()}>Reset</Button>
+                            <Button color="warning" onClick={() => this.btReset()}>Reset</Button>
                             <Button color="primary" onClick={() => this.btSearch()}>Filter</Button>
                         </div>
                     </div>
@@ -156,4 +166,4 @@ const mapToProps = ({ productsReducer }) => {
     }
 }
 
-export default connect(mapToProps, { getProductsAction })(ProductsPage);
+export default connect(mapToProps, { getProductsAction, getProductsSort })(ProductsPage);

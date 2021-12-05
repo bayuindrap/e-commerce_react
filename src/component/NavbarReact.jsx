@@ -1,15 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Collapse, DropdownToggle, UncontrolledDropdown, DropdownMenu, DropdownItem, Spinner } from 'reactstrap';
+import { Button, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Collapse, DropdownToggle, UncontrolledDropdown, DropdownMenu, DropdownItem, Spinner, Input, InputGroup } from 'reactstrap';
 import { connect } from 'react-redux'
 import { logOutAction } from '../redux/actions';
 class NavbarComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            openCollapse: false
+            openCollapse: false,
+            openToggle:false
         }
     }
+
+    toggle = () => {
+        this.setState({
+            openToggle: !this.state.openToggle
+        })
+
+    }
+
+    totalCart = () => {
+        let total = 0
+        this.props.cart.forEach((value) => {
+            total += value.qty
+        });
+        return total
+    }
+
     render() {
         return (
             <Navbar expand="md" className="shadow bg-white rounded">
@@ -22,77 +39,86 @@ class NavbarComponent extends React.Component {
                 <Collapse isOpen={this.state.openCollapse} navbar>
                     <Nav>
                         <NavItem>
-                            <Link className="nav-link" to="/products" style={{color: "black"}}>
+                            <Link className="nav-link" to="/products" style={{ color: "black" }}>
                                 Product
                             </Link>
                         </NavItem>
                         <NavItem>
-                            <NavLink style={{color: "black"}}>
+                            <NavLink style={{ color: "black" }}>
                                 About
                             </NavLink>
                         </NavItem>
                     </Nav>
+                    {/* <div className="col-md-6" >
+                        <InputGroup style={{ width: "50%", margin: "auto" }}>
+                            <Input placeholder="Cari Barang" />
+                            <Button outline color="primary"><span class="material-icons">
+                                search
+                            </span>
+                            </Button>
+                        </InputGroup>
+                    </div> */}
                     {
                         this.props.loading ?
-                        <Spinner  style={{ marginLeft: "auto", marginRight: 10}}>
-                            Loading...
-                        </Spinner>
-                        :
-
-                        this.props.username ?
-                            <UncontrolledDropdown style={{ marginLeft: "auto" }}>
-                                <DropdownToggle caret nav size="sm" outline className="d-flex align-items-center" style={{ color: "#0984e3" }}>
-                                    Hello,<b style={{ fontWeight: "bold" }}>{this.props.username}</b>
-                                </DropdownToggle>
-                                {
-                                    this.props.role == "user"
-                                        ? 
-                                        <DropdownMenu right>
-                                            <DropdownItem>
-                                                <Link to="" style={{ color: "#2d3436", textDecoration: "none" }}>
-                                                    Cart
-                                                </Link>
-                                            </DropdownItem>
-                                            <DropdownItem>
-                                                <Link to="" style={{ color: "#2d3436", textDecoration: "none" }}>
-                                                    Transactions
-                                                </Link>
-                                            </DropdownItem>
-                                            <DropdownItem>
-                                                <Link to="" style={{ color: "#2d3436", textDecoration: "none" }}>
-                                                    Profile
-                                                </Link>
-                                            </DropdownItem>
-                                            <DropdownItem divider />
-                                            <DropdownItem onClick={()=>{localStorage.removeItem("data");this.props.logOutAction()}}>
-                                                Keluar
-                                            </DropdownItem>
-                                        </DropdownMenu>
-                                        :
-                                        <DropdownMenu right >
-                                            <DropdownItem>
-                                                <Link to="/product-management" style={{ color: "#2d3436" }} className="nav-link">
-                                                    Products Management
-                                                </Link>
-                                            </DropdownItem>
-                                            <DropdownItem>
-                                                <Link to="/product-management" style={{ color: "#2d3436" }} className="nav-link">
-                                                    Transactions Management
-                                                </Link>
-                                            </DropdownItem>
-                                            <DropdownItem divider />
-                                            <DropdownItem onClick={()=>{localStorage.removeItem("data");this.props.logOutAction()}}>
-                                                Keluar
-                                            </DropdownItem>
-                                        </DropdownMenu>
-                                }
-
-                            </UncontrolledDropdown>
+                            <Spinner style={{ marginLeft: "auto", marginRight: 10 }}>
+                                Loading...
+                            </Spinner>
                             :
-                            
-                            <Link to="/auth-page" style={{ marginLeft: "auto" }}>
-                                <Button type="button" color="success" outline>Masuk dan Daftar</Button>
-                            </Link>
+
+                            this.props.username ?
+                                <UncontrolledDropdown style={{ marginLeft: "auto" }}>
+                                    <DropdownToggle caret nav size="sm" outline className="d-flex align-items-center" style={{ color: "#0984e3" }}>
+                                        Hello,<b style={{ fontWeight: "bold" }}>{this.props.username}</b>
+                                    </DropdownToggle>
+                                    {
+                                        this.props.role == "user"
+                                            ?
+                                            <DropdownMenu right>
+                                                <DropdownItem>
+                                                    <Link to="/cart-user" style={{ color: "#2d3436", textDecoration: "none" }}>
+                                                        Cart <span className="badge badge-danger">{this.totalCart()}</span>
+                                                    </Link>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <Link to="" style={{ color: "#2d3436", textDecoration: "none" }}>
+                                                        Transactions
+                                                    </Link>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <Link to="" style={{ color: "#2d3436", textDecoration: "none" }}>
+                                                        Profile
+                                                    </Link>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem onClick={() => { localStorage.removeItem("data"); this.props.logOutAction() }}>
+                                                    Keluar
+                                                </DropdownItem>
+                                            </DropdownMenu>
+                                            :
+                                            <DropdownMenu right >
+                                                <DropdownItem>
+                                                    <Link to="/product-management" style={{ color: "#2d3436" }} className="nav-link">
+                                                        Products Management
+                                                    </Link>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                    <Link to="/product-management" style={{ color: "#2d3436" }} className="nav-link">
+                                                        Transactions Management
+                                                    </Link>
+                                                </DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem onClick={() => { localStorage.removeItem("data"); this.props.logOutAction() }}>
+                                                    Keluar
+                                                </DropdownItem>
+                                            </DropdownMenu>
+                                    }
+
+                                </UncontrolledDropdown>
+                                :
+
+                                <Link to="/auth-page" style={{ marginLeft: "auto" }}>
+                                    <Button type="button" color="success" outline>Masuk dan Daftar</Button>
+                                </Link>
 
                     }
                 </Collapse>
@@ -104,7 +130,8 @@ class NavbarComponent extends React.Component {
 const mapToProps = (state) => {
     return {
         username: state.userReducer.username,
-        role: state.userReducer.role
+        role: state.userReducer.role,
+        cart : state.userReducer.cart
     }
 }
 export default connect(mapToProps, { logOutAction })(NavbarComponent);

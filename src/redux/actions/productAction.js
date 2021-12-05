@@ -11,6 +11,7 @@
 //         payload: data
 //     }
 // }
+
 import axios from "axios"
 import { API_URL } from "../../helper"
 
@@ -42,22 +43,26 @@ export const getProductsAction = (search, minimum, maximum) => {
                 res = await axios.get(`${API_URL}/products?harga_gte=${minimum}&harga_lte=${maximum}`)
             } else {
                 res = await axios.get(`${API_URL}/products`)
-            }if (search) {
-                if (search.hargaAsc == "harga-asc"){
-                    console.log("tesHarga==> asc", search.hargaAsc)
-                    res = await axios.get(`${API_URL}/products?_sort=harga&_order=asc`)
-                }
-                if (search.hargaDesc){
-                    res = await axios.get(`${API_URL}/products?_sort=harga&_order=desc`)
-                }
-
-                if (search.azAsc){
-                    res = await axios.get(`${API_URL}/products?_sort=nama&_order=asc`)
-                }
-                if (search.azDesc){
-                    res = await axios.get(`${API_URL}/products?_sort=nama&_order=desc`)
-                }
             }
+            //ini cara sort pake if condition lebih panjang
+            // if (search) {
+            //     if (search.hargaAsc == "harga-asc"){
+            //         console.log("tesHarga==> asc", search.hargaAsc)
+            //         res = await axios.get(`${API_URL}/products?_sort=harga&_order=asc`)
+            //     }
+            //     if (search.hargaDesc){
+            //         res = await axios.get(`${API_URL}/products?_sort=harga&_order=desc`)
+            //     }
+
+            //     if (search.azAsc){
+            //         res = await axios.get(`${API_URL}/products?_sort=nama&_order=asc`)
+            //     }
+            //     if (search.azDesc){
+            //         res = await axios.get(`${API_URL}/products?_sort=nama&_order=desc`)
+            //     }
+            // }
+
+
             //cara 2 pake ternary 
             // let res = await axios.get(`${API_URL}/products${search ? `?nama=${search}` : ""}`)
             dispatch({
@@ -67,5 +72,21 @@ export const getProductsAction = (search, minimum, maximum) => {
         } catch (error) {
             console.log(error)
         }
+    }
+}
+
+// ini cara sort pake onchange
+export const getProductsSort = (sort) => {
+    return async (dispatch) => {
+        try {
+            let res = await axios.get(`${API_URL}/products?_sort=${sort.field}&_order=${sort.sortType}`)
+            dispatch({
+                type: "GET_DATA_PRODUCTS",
+                payload: res.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 }

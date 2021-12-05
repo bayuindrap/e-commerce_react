@@ -15,6 +15,8 @@ import ProductsPage from './pages/ProductsPage';
 import { getProductsAction } from './redux/actions';
 import { API_URL } from './helper';
 import ProductDetail from './pages/ProductDetail';
+import CartPage from './pages/CartPage';
+
 
 
 class App extends React.Component {
@@ -27,8 +29,10 @@ class App extends React.Component {
 
   componentDidMount() {
     this.keepLogin()
-    this.getProducts()
-    // this.props.getProductsAction()
+    // this.getProducts()
+    this.props.getProductsAction()
+    
+    
   }
 
   keepLogin =  async () => {
@@ -50,12 +54,12 @@ class App extends React.Component {
     
   }
 
-  getProducts = () => {
+  // getProducts = () => {
    
-        this.props.getProductsAction()
+  //       this.props.getProductsAction()
         
       
-  }
+  // }
 
   render() {
     return (
@@ -67,6 +71,7 @@ class App extends React.Component {
           <Route path="/product-management" element={<ProductManagement />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/products-detail" element={<ProductDetail />} />
+          <Route path="/cart-user" element={<CartPage />} />
         </Routes>
 
       </div>

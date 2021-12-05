@@ -22,7 +22,7 @@ class HomePage extends React.Component {
                 // altText: 'Slide 2',
                 // caption: 'Slide 2',
                 key: 2,
-                src: 'https://pbs.twimg.com/media/EGQ_rhuUwAAp3S0.jpg'
+                src: 'https://ecs7.tokopedia.net/blog-tokopedia-com/uploads/2020/05/New-Promo-flow_Header.jpg'
               },
               {
                 // altText: 'Slide 3',

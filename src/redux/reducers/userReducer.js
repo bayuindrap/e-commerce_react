@@ -4,6 +4,7 @@ const INITIAL_STATE = {
     email: "",
     role: "",
     status: "",
+    cart: []
 
 }
 // Finc userReducer : untuk mereturn data dari action.payload agar dapat disimpan oleh STATE REDUCER
@@ -19,7 +20,10 @@ export const userReducer = (state = INITIAL_STATE, action) => {
                 email: action.payload.email,
                 role: action.payload.role,
                 status: action.payload.status,
+                cart: action.payload.cart
             }
+            case "UPDATE_CART_USER":
+                return {...state, cart: action.payload}
         case "LOGOUT":
             return INITIAL_STATE
         default:

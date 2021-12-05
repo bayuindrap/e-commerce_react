@@ -22,7 +22,8 @@ class ProductManagement extends React.Component {
             page: 1,
             handle: 2,
             harga: null,
-            selectedImage: null
+            selectedImage: null,
+            limit: 4
 
         }
     }
@@ -44,10 +45,10 @@ class ProductManagement extends React.Component {
     }
 
     printProduk = () => {
-        let { page, handle } = this.state
-        return this.props.productsList.slice(page > 1 ? (page - 1) * handle : page - 1, page * handle).map((item, index) => {
+        let { page, limit } = this.state
+        return this.props.productsList.slice(page > 1 ? (page - 1) * limit : page - 1, page * limit).map((item, index) => {
             return <tr>
-                <td>{page > 1 ? (page - 1) * handle + index + 1 : index + 1}</td>
+                <td>{page > 1 ? (page - 1) * limit + index + 1 : index + 1}</td>
                 <td style={{ width: '20vw', textAlign: 'center' }}>
                     {
                         this.state.selectedIdx == index ?
@@ -91,7 +92,7 @@ class ProductManagement extends React.Component {
 
     printBtPagination = () => {
         let btn = []
-        for (let i = 0; i < Math.ceil(this.props.productsList.length / 4); i++) {
+        for (let i = 0; i < Math.ceil(this.props.productsList.length / this.state.limit); i++) {
             btn.push(<Button outline color="primary"
                 disabled={this.state.page == i + 1 ? true : false}
                 onClick={() => this.setState({ page: i + 1 })}>
@@ -143,47 +144,45 @@ class ProductManagement extends React.Component {
                     detailProduk={this.state.detailProduk}
                     btClose={() => this.setState({ modalEditOpen: !this.state.modalEditOpen })}
                 />
-                <Row >
-                    <Col xs="3" >
+                
+                <div className="row">
+                    <div className="col-md-3 p-1">
                         <div className="p-4 shadow mb-5 bg-white rounded">
+                            <Button type="button" color="success" style={{ width: "100%" }} onClick={() => this.setState({ modalOpen: !this.state.modalOpen })}>Add</Button>
+                            <div className="d-flex d-md-block mt-4">
+                                <FormGroup>
+                                    <Label>Nama</Label>
+                                    <Input type="text" id="text" placeholder="Cari produk"
+                                        innerRef={(element) => this.inSearchName = element} />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>Harga</Label>
+                                    <div className="d-flex">
+                                        <Input type="number" id="numb1" placeholder="Minimum"
+                                            innerRef={(element) => this.inSearchMinimum = element} />
+                                        <Input type="number" id="numb2" placeholder="Maksimum"
+                                            innerRef={(element) => this.inSearchMaximum = element} />
+                                    </div>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>Sort</Label>
+                                    <Input type="select" onChange={this.handleSort}>
+                                        <option value="harga-asc">Harga Asc</option>
+                                        <option value="harga-desc">Harga Desc</option>
+                                        <option value="nama-asc">A-Z</option>
+                                        <option value="nama-desc">Z-A</option>
+                                        <option value="id-asc">Reset</option>
+                                    </Input>
+                                </FormGroup>
 
-                        <Row>
-                            <Button type="button" color="success" onClick={() => this.setState({ modalOpen: !this.state.modalOpen })}>Add</Button>
-                        </Row>
-                        <FormGroup>
-                            <Label>Nama</Label>
-                            <Input type="text" id="text" placeholder="Cari produk"
-                                innerRef={(element) => this.inSearchName = element} />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label>Harga</Label>
-                            <div className="d-flex">
-                                <Input type="number" id="numb1" placeholder="Minimum"
-                                    innerRef={(element) => this.inSearchMinimum = element} />
-                                <Input type="number" id="numb2" placeholder="Maksimum"
-                                    innerRef={(element) => this.inSearchMaximum = element} />
                             </div>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label>Sort</Label>
-                            <InputGroup>
-                                <Input type="select" style={{ width: "250px" }} onChange={this.handleSort}>
-                                    {/* innerRef={(element) => this.inSearchSort = element} */}
-                                    <option value="harga-asc">Harga Asc</option>
-                                    <option value="harga-desc">Harga Desc</option>
-                                    <option value="nama-asc">A-Z</option>
-                                    <option value="nama-desc">Z-A</option>
-                                    <option value="id-asc">Reset</option>
-                                </Input>
-                            </InputGroup>
                             <div className="pt-2" style={{ textAlign: "end" }}>
                                 <Button color="warning" onClick={this.btReset}>Reset</Button>
                                 <Button style={{ marginLeft: 16 }} color="primary" onClick={this.btSearch}>Filter</Button>
                             </div>
-                        </FormGroup>
                         </div>
-                    </Col>
-                    <Col>
+                    </div>
+                    <div className="col-md-9">
                         <Table>
                             <thead>
                                 <tr>
@@ -200,20 +199,21 @@ class ProductManagement extends React.Component {
                                 {this.printProduk()}
                             </tbody>
                         </Table>
-                    </Col>
-                </Row>
-                <div className="my-5 text-center">
-                    <div className="m-3 d-flex ">
-                        <Input type="select" style={{ width: "100px" }} onChange={this.handlePage}>
-                            <option value="2">2</option>
-                            <option value="4">4</option>
-                            <option value="8">8</option>
-                            <option value="12">12</option>
-                            <option value="16">16</option>
-                        </Input>
-                        <ButtonGroup className="mx-3">
-                            {this.printBtPagination()}
-                        </ButtonGroup>
+                        <div className="my-5 d-flex justify-content-center">
+                            <Input type="select" value={this.state.limit} style={{ width: 75, marginRight: 10 }}
+                                onChange={(e) => this.setState({ limit: parseInt(e.target.value) })}>
+                                <option value="2">2</option>
+                                <option value="4">4</option>
+                                <option value="8">8</option>
+                                <option value="12">12</option>
+                                <option value="16">16</option>
+                            </Input>
+                            <ButtonGroup>
+                                {
+                                    this.printBtPagination()
+                                }
+                            </ButtonGroup>
+                        </div>
                     </div>
                 </div>
             </div>
