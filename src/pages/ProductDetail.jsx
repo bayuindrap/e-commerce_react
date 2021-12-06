@@ -205,6 +205,7 @@ import { Button, Collapse, Input, Toast, ToastBody, ToastHeader } from 'reactstr
 import { API_URL } from '../helper';
 import { updateUserCart } from '../redux/actions';
 import { Link } from "react-router-dom";
+import { Navigate } from 'react-router';
 
 
 class ProductDetail extends React.Component {
@@ -285,6 +286,7 @@ class ProductDetail extends React.Component {
                 }).then((res) => {
                     console.log("data cart", res.data)
                     this.props.updateUserCart(res.data.cart)
+                    window.location = 'http://localhost:3000/cart-user'; 
                 }).catch((err) => {
                     console.log(err)
                 })
@@ -299,8 +301,44 @@ class ProductDetail extends React.Component {
         }
     }
 
+    // onBtAddToCart = async () => {
+    //     let { selectedType, detail, qty } = this.state
+    //     if (selectedType.type) {
+    //         let dataCart = {
+    //             image: detail.images[0],
+    //             nama: detail.nama,
+    //             brand: detail.brand,
+    //             harga: detail.harga,
+    //             type: selectedType.type,
+    //             qty
+    //         }
+
+    //         // menggabungkan data cart sebelumnya dari reducer, dengan dataCart baru yg akan ditambahkan
+    //         let temp = [...this.props.cart];
+    //         temp.push(dataCart);
+
+    //         if (this.props.iduser) {
+    //             let res = await this.props.updateUserCart(temp, this.props.iduser);
+    //             if (res.success) {
+    //                 this.setState({ redirect: true })
+    //             }
+    //         } else {
+    //             this.setState({ toastOpen: !this.state.toastOpen, toastMsg: "Silahkan Login Terlebih Dahulu" })
+    //         }
+
+    //     } else {
+    //         this.setState({ toastOpen: !this.state.toastOpen, toastMsg: "Pilih tipe produk terlebih dahulu" })
+    //     }
+    // }
+
     render() {
+        if(this.state.redirect){
+            return <Navigate to="/cart-user"/>
+        }
+
+
         return (
+            
             <div>
                 <div>
                     <Toast isOpen={this.state.toastOpen} style={{ position: "fixed", right: 10 }}>

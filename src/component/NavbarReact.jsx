@@ -8,7 +8,7 @@ class NavbarComponent extends React.Component {
         super(props);
         this.state = {
             openCollapse: false,
-            openToggle:false
+            openToggle: false
         }
     }
 
@@ -74,14 +74,14 @@ class NavbarComponent extends React.Component {
                                         this.props.role == "user"
                                             ?
                                             <DropdownMenu right>
-                                                <DropdownItem>
-                                                    <Link to="/cart-user" style={{ color: "#2d3436", textDecoration: "none" }}>
+                                                <Link to="/cart-user" style={{ color: "#2d3436", textDecoration: "none" }}>
+                                                    <DropdownItem>
                                                         Cart <span className="badge badge-danger">{this.totalCart()}</span>
-                                                    </Link>
-                                                </DropdownItem>
+                                                    </DropdownItem>
+                                                </Link>
                                                 <DropdownItem>
-                                                    <Link to="" style={{ color: "#2d3436", textDecoration: "none" }}>
-                                                        Transactions
+                                                    <Link to="/history-user" style={{ color: "#2d3436", textDecoration: "none" }}>
+                                                        Transactions History
                                                     </Link>
                                                 </DropdownItem>
                                                 <DropdownItem>
@@ -102,7 +102,7 @@ class NavbarComponent extends React.Component {
                                                     </Link>
                                                 </DropdownItem>
                                                 <DropdownItem>
-                                                    <Link to="/product-management" style={{ color: "#2d3436" }} className="nav-link">
+                                                    <Link to="/transaction-management" style={{ color: "#2d3436" }} className="nav-link">
                                                         Transactions Management
                                                     </Link>
                                                 </DropdownItem>
@@ -131,7 +131,7 @@ const mapToProps = (state) => {
     return {
         username: state.userReducer.username,
         role: state.userReducer.role,
-        cart : state.userReducer.cart
+        cart: state.userReducer.cart
     }
 }
 export default connect(mapToProps, { logOutAction })(NavbarComponent);

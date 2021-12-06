@@ -126,14 +126,16 @@ class CartPage extends React.Component {
         if (this.props.cart[index].qty > 1) {
             this.props.cart[index].qty -= 1
             this.props.cart[index].totalHarga -= this.props.cart[index].harga
-            console.log("qty", this.props.cart[index].qty)
+        } else {
+            this.props.cart.splice(index, 1)
+        }
+        // console.log("qty", this.props.cart[index].qty)
             axios.patch(`${API_URL}/dataUser/${this.props.iduser}`, { cart: this.props.cart })
                 .then((res) => {
                     this.props.updateUserCart(res.data.cart)
                 }).catch((err) => {
                     console.log(err)
                 })
-        }
     }
 
 

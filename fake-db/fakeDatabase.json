@@ -15,17 +15,7 @@
       "role": "user",
       "status": "active",
       "id": 2,
-      "cart": [
-        {
-          "images": "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/107/0810720_PE771385_S4.jpg",
-          "nama": "IDALINNEA D",
-          "brand": "IKEA",
-          "harga": 79000,
-          "totalHarga": 158000,
-          "type": "M",
-          "qty": 3
-        }
-      ]
+      "cart": []
     }
   ],
   "products": [
@@ -379,5 +369,6 @@
       ],
       "id": 14
     }
-  ]
+  ],
+  "userTransactions": []
 }

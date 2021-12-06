@@ -16,6 +16,9 @@ import { getProductsAction } from './redux/actions';
 import { API_URL } from './helper';
 import ProductDetail from './pages/ProductDetail';
 import CartPage from './pages/CartPage';
+import NotFoundPage from './pages/NotFound';
+import HistoryPage from './pages/HistoryPage';
+import TransactionManagement from './pages/TransactionManagement';
 
 
 
@@ -68,10 +71,23 @@ class App extends React.Component {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/auth-page" element={<AuthPage />} />
-          <Route path="/product-management" element={<ProductManagement />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/products-detail" element={<ProductDetail />} />
-          <Route path="/cart-user" element={<CartPage />} />
+          {
+            this.props.role == "user" ?
+              <>
+              <Route path="/cart-user" element={<CartPage />} />
+              <Route path="/history-user" element={<HistoryPage />} />
+              </>
+              :
+              this.props.role == "admin" ?
+                <>
+                <Route path="/product-management" element={<ProductManagement />} />
+                <Route path="/transaction-management" element={<TransactionManagement />} />
+                </>
+                :
+                <Route path="*" element={<NotFoundPage />} />
+          }
         </Routes>
 
       </div>
@@ -79,5 +95,11 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, { loginAction, getProductsAction })(App);
+const mapToProps = (state) => {
+  return {
+    role: state.userReducer.role
+  }
+}
+
+export default connect(mapToProps, { loginAction, getProductsAction })(App);
 
