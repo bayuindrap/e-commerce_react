@@ -1,64 +1,60 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Collapse, DropdownToggle, UncontrolledDropdown, DropdownMenu, DropdownItem, Spinner, Input, InputGroup } from 'reactstrap';
-import { connect } from 'react-redux'
-import { logOutAction } from '../redux/actions';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Button, Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, NavLink, UncontrolledDropdown, DropdownMenu, DropdownItem, NavbarText, DropdownToggle } from "reactstrap";
+
+
+
 class NavbarComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            openCollapse: false,
-            openToggle: false
-        }
+        this.state = {}
     }
-
-    toggle = () => {
-        this.setState({
-            openToggle: !this.state.openToggle
-        })
-
-    }
-
-    totalCart = () => {
-        let total = 0
-        this.props.cart.forEach((value) => {
-            total += value.qty
-        });
-        return total
-    }
-
     render() {
         return (
-            <Navbar expand="md" className="shadow bg-white rounded">
+            // <Navbar expand="md" color="light">
+            //     <NavbarBrand>
+            //         <Link to="/">
+            //             <img src="https://e7.pngegg.com/pngimages/750/189/png-clipart-white-and-red-air-jordan-1-shoe-illustration-jumpman-air-jordan-drawing-shoe-sneakers-running-shoes-white-outdoor-shoe.png" alt="logo-brand" width="50px" />
+            //         </Link>
+            //     </NavbarBrand>
+            //     <Nav>
+            //         <NavItem color="#1B613B">
+            //             Sneakers
+            //         </NavItem>
+            //     </Nav>
+            // </Navbar>
+            //className="shadow bg-white rounded"
+            <Navbar expand="md"color="dark" >
                 <NavbarBrand>
                     <Link to="/">
-                        <img src="https://www.sipayo.com/wp-content/uploads/2017/12/e-commerce.png" alt="logo-brand" width="50px" />
+                        <img src="https://i.postimg.cc/ZKtbm455/index.png" alt="logo-brand" width="35px" />
                     </Link>
                 </NavbarBrand>
                 <NavbarToggler onClick={() => this.setState({ openCollapse: !this.state.openCollapse })} />
                 <Collapse isOpen={this.state.openCollapse} navbar>
                     <Nav>
                         <NavItem>
-                            <Link className="nav-link" to="/products" style={{ color: "black" }}>
-                                Product
+                            <Link className="nav-link" to="/products" style={{ color: "#159953" }}>
+                                Sneakers
                             </Link>
                         </NavItem>
                         <NavItem>
-                            <NavLink style={{ color: "black" }}>
-                                About
+                            <NavLink style={{ color: "White" }}>
+                                Street Wear
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink style={{ color: "White" }}>
+                                Luxury Brands
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink style={{ color: "White" }}>
+                                Made In Indonesia
                             </NavLink>
                         </NavItem>
                     </Nav>
-                    {/* <div className="col-md-6" >
-                        <InputGroup style={{ width: "50%", margin: "auto" }}>
-                            <Input placeholder="Cari Barang" />
-                            <Button outline color="primary"><span class="material-icons">
-                                search
-                            </span>
-                            </Button>
-                        </InputGroup>
-                    </div> */}
-                    {
+                    {/* {
                         this.props.loading ?
                             <Spinner style={{ marginLeft: "auto", marginRight: 10 }}>
                                 Loading...
@@ -120,18 +116,30 @@ class NavbarComponent extends React.Component {
                                     <Button type="button" color="success" outline>Masuk dan Daftar</Button>
                                 </Link>
 
-                    }
+                    } */}
+                    <Link to="/login-page" style={{ marginLeft: "auto" }}>
+                        <Button type="button" color="success">Sign In</Button>
+                    </Link>
+                    <div style={{ float: "right" }}>
+
+                        <Nav >
+                            {/* <NavItem>
+                                <Link className="nav-link" to="/Login-Page" style={{ color: "green" }}>
+                                    Login
+                                </Link>
+                            </NavItem> */}
+                            <NavItem>
+                                <Link className="nav-link" to="/register-page" style={{ color: "green" }}>
+                                    Register
+                                </Link>
+                            </NavItem>
+                        </Nav>
+                    </div>
+
                 </Collapse>
             </Navbar>
         );
     }
 }
 
-const mapToProps = (state) => {
-    return {
-        username: state.userReducer.username,
-        role: state.userReducer.role,
-        cart: state.userReducer.cart
-    }
-}
-export default connect(mapToProps, { logOutAction })(NavbarComponent);
+export default NavbarComponent;
